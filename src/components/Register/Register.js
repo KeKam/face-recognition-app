@@ -23,20 +23,22 @@ class Register extends Component {
   }
 
   onRegister = () => {
+    const { name, email, password } = this.state;
+    const { loadUser, onRouteChange } = this.props;
     fetch('http://localhost:3000/register', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password
+        name,
+        email,
+        password
       })
     })
       .then(response => response.json())
       .then(user => {
         if (user) {
-          this.props.loadUser(user);
-          this.props.onRouteChange('home');
+          loadUser(user);
+          onRouteChange('home');
         }
       })
   }
